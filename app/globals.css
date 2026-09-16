@@ -27,8 +27,9 @@
   /* spacing/sm จาก Figma */
   --spacing-sm: 8px;
 
-  /* ฟอนต์ Anuphan ถูกโหลดผ่าน next/font ใน layout.tsx */
+  /* ฟอนต์ถูกโหลดผ่าน next/font ใน layout.tsx */
   --font-anuphan: var(--font-anuphan-loaded), "Anuphan", system-ui, sans-serif;
+  --font-display: var(--font-display-loaded), "Anton", "Arial Narrow", sans-serif;
 }
 
 :root {

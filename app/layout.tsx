@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Anuphan } from 'next/font/google';
+import { Anton, Anuphan } from 'next/font/google';
 import './globals.css';
 
 // ฟอนต์ Anuphan ตามที่ระบุไว้ใน Figma (Body/Small, Body/Medium, Body/Large)
@@ -8,6 +8,15 @@ const anuphan = Anuphan({
   weight: ['400', '500', '600', '700'],
   display: 'swap',
   variable: '--font-anuphan-loaded',
+});
+
+// ฟอนต์หัวข้อแบบ condensed หนา ๆ ใช้แทน "Frick 0.3 Condensed" ในดีไซน์
+// (ฟอนต์ต้นฉบับเป็นฟอนต์เชิงพาณิชย์ จึงใช้ Anton ที่หน้าตาใกล้เคียงแทน)
+const anton = Anton({
+  subsets: ['latin'],
+  weight: '400',
+  display: 'swap',
+  variable: '--font-display-loaded',
 });
 
 export const metadata: Metadata = {
@@ -22,7 +31,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="th" className={anuphan.variable}>
+    <html lang="th" className={`${anuphan.variable} ${anton.variable}`}>
       <body className="font-anuphan antialiased">{children}</body>
     </html>
   );
