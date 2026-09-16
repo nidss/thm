@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { GradientBlock, GRADIENTS } from '../Surface';
+import { GradientBlock, Img } from '../Surface';
 import {
   IconBell,
   IconBike,
@@ -91,10 +91,8 @@ export function DashboardScreen() {
 
       {/* การ์ด Monthly Challenge */}
       <motion.section variants={popCard} className="px-4">
-        <div
-          className="relative h-[156px] overflow-hidden rounded-[28px] p-4"
-          style={{ backgroundImage: GRADIENTS.challenge }}
-        >
+        <div className="relative h-[156px] overflow-hidden rounded-[28px] p-4">
+          <Img name="monthlyChallenge" alt="" priority />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-ink/30 to-ink/90" />
           <div className="relative flex h-full flex-col justify-between">
             <span className="w-fit rounded-full bg-violet px-[11px] py-[5px] text-xs text-white">

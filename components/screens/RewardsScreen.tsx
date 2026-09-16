@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { GradientBlock, GRADIENTS } from '../Surface';
+import { FixedImg, Img, type ImageKey } from '../Surface';
 import { IconArrowUpRight, IconBoltFilled } from '../icons';
 import { CountUp, listStagger, popCard, riseItem, springSoft } from '../motion';
 
@@ -14,8 +14,7 @@ const REWARDS = [
     brand: 'CAFE AMAZON',
     title: 'คูปองกาแฟ ฟรี 1 แก้ว',
     points: '120 แต้ม',
-    gradient: 'green',
-    logo: 'AMZ',
+    logo: 'logoCafeAmazon' as ImageKey,
     note: null,
     highlight: false,
   },
@@ -23,8 +22,7 @@ const REWARDS = [
     brand: 'CENTRAL',
     title: 'บัตรกำนัล ฿300',
     points: '1,500 แต้ม',
-    gradient: 'maroon',
-    logo: 'CTL',
+    logo: 'logoCentral' as ImageKey,
     note: null,
     highlight: false,
   },
@@ -32,8 +30,7 @@ const REWARDS = [
     brand: 'THAIMOVE STORE',
     title: 'เสื้อวิ่ง Limited Edition',
     points: '2,400 แต้ม',
-    gradient: 'navy',
-    logo: 'TM',
+    logo: 'logoThaimoveStore' as ImageKey,
     note: { text: 'เหลือ 18 ชิ้น', className: 'text-coral' },
     highlight: false,
   },
@@ -41,8 +38,7 @@ const REWARDS = [
     brand: 'BANGKOK HALF',
     title: 'สิทธิ์สมัครงานวิ่ง 10K',
     points: '3,000 แต้ม',
-    gradient: 'brown',
-    logo: 'BKK',
+    logo: 'logoBangkokHalf' as ImageKey,
     note: null,
     highlight: false,
   },
@@ -50,8 +46,7 @@ const REWARDS = [
     brand: 'มูลนิธิรามาธิบดี',
     title: 'บริจาคแทนแต้ม 50 บาท',
     points: '500 แต้ม',
-    gradient: 'purple',
-    logo: 'RAMA',
+    logo: 'logoRamaFoundation' as ImageKey,
     note: { text: 'ยอดปัจจุบัน: ฿184,200', className: 'text-white' },
     highlight: true,
   },
@@ -86,10 +81,8 @@ export function RewardsScreen() {
 
       {/* แบนเนอร์ Lucky Draw */}
       <motion.section variants={popCard} className="px-4">
-        <div
-          className="relative h-[172px] overflow-hidden rounded-[28px] p-4"
-          style={{ backgroundImage: GRADIENTS.violetUp }}
-        >
+        <div className="relative h-[172px] overflow-hidden rounded-[28px] p-4">
+          <Img name="luckyDraw" alt="ลุ้นตั๋วงานวิ่ง + สมาร์ตวอตช์" priority />
           <div className="absolute inset-0 bg-gradient-to-b from-violet/45 to-ink/[0.92]" />
           {/* วงแสงเคลื่อนช้า ๆ ให้แบนเนอร์ไม่นิ่งเกินไป */}
           <motion.div
@@ -157,10 +150,10 @@ export function RewardsScreen() {
                 : 'bg-surface'
             }`}
           >
-            <GradientBlock
-              gradient={reward.gradient}
-              className="size-[60px] rounded-[18px]"
-              label={reward.logo}
+            <FixedImg
+              name={reward.logo}
+              alt={reward.brand}
+              className="size-[60px] shrink-0 rounded-[18px] object-cover"
             />
             <div className="min-w-0 flex-1">
               <p className="truncate text-[10.5px] font-semibold tracking-[0.8px] text-primary">

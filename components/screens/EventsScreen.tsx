@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { GradientBlock, GRADIENTS } from '../Surface';
+import { GradientBlock, GRADIENTS, Img } from '../Surface';
 import { IconUsers } from '../icons';
 import { CountUp, listStagger, popCard, ProgressBar, riseItem, springSoft } from '../motion';
 
@@ -58,7 +58,8 @@ export function EventsScreen() {
       {/* การ์ดอีเวนต์หลักที่กำลังแข่งอยู่ */}
       <motion.section variants={popCard} className="px-4">
         <div className="overflow-hidden rounded-[28px] bg-surface">
-          <div className="relative h-[132px]" style={{ backgroundImage: GRADIENTS.green }}>
+          <div className="relative h-[132px] overflow-hidden">
+            <Img name="eventVirtualRun" alt="ThaiMove Virtual Run 100K" priority />
             <div className="absolute inset-0 bg-gradient-to-b from-ink/5 to-ink/90" />
             <span className="absolute left-3 top-3 rounded-full bg-primary px-[11px] py-[5px] text-[10px] font-semibold tracking-[0.5px] text-ink">
               กำลังแข่ง เหลือ 23 วัน
@@ -155,7 +156,9 @@ export function EventsScreen() {
           whileHover={{ scale: 1.01 }}
           className="flex items-center gap-[13px] rounded-[24px] bg-surface px-[13px] py-[11px]"
         >
-          <GradientBlock gradient="navy" className="size-[58px] rounded-[18px]" />
+          <div className="relative size-[58px] shrink-0 overflow-hidden rounded-[18px]">
+            <Img name="event7DaySteps" alt="7 วัน 7 หมื่นก้าว" />
+          </div>
           <div className="min-w-0 flex-1">
             <p className="text-[10.5px] font-semibold tracking-[0.8px] text-primary">เปิดรับสมัคร</p>
             <p className="truncate pt-0.5 text-sm font-bold leading-[1.35] text-white">
