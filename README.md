@@ -17,7 +17,6 @@
 
 เมนูลอยด้านล่างมาจาก component `menu-light` (`281:2105`)
 
-ไฟล์ Figma: <https://www.figma.com/design/cEg5DME7RVnVffldxevpIl/ThaiMove>
 
 ## Animation ที่ใส่ไว้
 
