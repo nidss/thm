@@ -11,6 +11,8 @@ import { RewardsScreen } from './screens/RewardsScreen';
 
 import * as Auth from './screens/auth';
 import * as Setup from './screens/setup';
+import * as Home from './screens/home';
+import * as Rewards from './screens/rewards';
 
 /**
  * ผูก slug ของหน้าจอเข้ากับ component จริง
@@ -39,21 +41,21 @@ export const REGISTRY: Partial<Record<ScreenSlug, ComponentType>> = {
   // 3. หน้าหลักและกิจกรรม
   dashboard: DashboardScreen,
   activity: ActivityScreen,
-  // 'activity-item-detail': Home.ActivityItemDetailScreen,  // TODO: ยังไม่ได้ทำ
-  // 'activity-manual-upload': Home.ActivityManualUploadScreen,  // TODO: ยังไม่ได้ทำ
-  // notifications: Home.NotificationsScreen,  // TODO: ยังไม่ได้ทำ
-  // 'empty-no-activity': Home.EmptyNoActivityScreen,  // TODO: ยังไม่ได้ทำ
-  // 'error-no-internet': Home.ErrorNoInternetScreen,  // TODO: ยังไม่ได้ทำ
-  // skeleton: Home.SkeletonScreen,  // TODO: ยังไม่ได้ทำ
+  'activity-item-detail': Home.ActivityItemDetailScreen,
+  'activity-manual-upload': Home.ActivityManualUploadScreen,
+  notifications: Home.NotificationsScreen,
+  'empty-no-activity': Home.EmptyNoActivityScreen,
+  'error-no-internet': Home.ErrorNoInternetScreen,
+  skeleton: Home.SkeletonScreen,
 
   // 4. แต้มและของรางวัล
   rewards: RewardsScreen,
-  // 'reward-detail': Rewards.RewardDetailScreen,  // TODO: ยังไม่ได้ทำ
-  // 'redeem-confirm': Rewards.RedeemConfirmScreen,  // TODO: ยังไม่ได้ทำ
-  // 'redeem-success': Rewards.RedeemSuccessScreen,  // TODO: ยังไม่ได้ทำ
-  // 'redeem-error': Rewards.RedeemErrorScreen,  // TODO: ยังไม่ได้ทำ
-  // 'my-coupons': Rewards.MyCouponsScreen,  // TODO: ยังไม่ได้ทำ
-  // 'points-history': Rewards.PointsHistoryScreen,  // TODO: ยังไม่ได้ทำ
+  'reward-detail': Rewards.RewardDetailScreen,
+  'redeem-confirm': Rewards.RedeemConfirmScreen,
+  'redeem-success': Rewards.RedeemSuccessScreen,
+  'redeem-error': Rewards.RedeemErrorScreen,
+  'my-coupons': Rewards.MyCouponsScreen,
+  'points-history': Rewards.PointsHistoryScreen,
 
   // 5. ลุ้นรางวัลและการรับรางวัล
   // 'lucky-draw': Draw.LuckyDrawScreen,  // TODO: ยังไม่ได้ทำ
