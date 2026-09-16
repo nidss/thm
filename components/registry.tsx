@@ -13,6 +13,8 @@ import * as Auth from './screens/auth';
 import * as Setup from './screens/setup';
 import * as Home from './screens/home';
 import * as Rewards from './screens/rewards';
+import * as Draw from './screens/draw';
+import * as Events from './screens/events';
 
 /**
  * ผูก slug ของหน้าจอเข้ากับ component จริง
@@ -58,22 +60,22 @@ export const REGISTRY: Partial<Record<ScreenSlug, ComponentType>> = {
   'points-history': Rewards.PointsHistoryScreen,
 
   // 5. ลุ้นรางวัลและการรับรางวัล
-  // 'lucky-draw': Draw.LuckyDrawScreen,  // TODO: ยังไม่ได้ทำ
-  // 'lucky-draw-my-tickets': Draw.LuckyDrawMyTicketsScreen,  // TODO: ยังไม่ได้ทำ
-  // 'lucky-draw-result': Draw.LuckyDrawResultScreen,  // TODO: ยังไม่ได้ทำ
-  // 'lucky-draw-all-results': Draw.LuckyDrawAllResultsScreen,  // TODO: ยังไม่ได้ทำ
-  // 'claim-verify-identity': Draw.ClaimVerifyIdentityScreen,  // TODO: ยังไม่ได้ทำ
-  // 'claim-shipping-address': Draw.ClaimShippingAddressScreen,  // TODO: ยังไม่ได้ทำ
-  // 'claim-tax-payment': Draw.ClaimTaxPaymentScreen,  // TODO: ยังไม่ได้ทำ
-  // 'claim-submitted': Draw.ClaimSubmittedScreen,  // TODO: ยังไม่ได้ทำ
+  'lucky-draw': Draw.LuckyDrawScreen,
+  'lucky-draw-my-tickets': Draw.LuckyDrawMyTicketsScreen,
+  'lucky-draw-result': Draw.LuckyDrawResultScreen,
+  'lucky-draw-all-results': Draw.LuckyDrawAllResultsScreen,
+  'claim-verify-identity': Draw.ClaimVerifyIdentityScreen,
+  'claim-shipping-address': Draw.ClaimShippingAddressScreen,
+  'claim-tax-payment': Draw.ClaimTaxPaymentScreen,
+  'claim-submitted': Draw.ClaimSubmittedScreen,
 
   // 6. อีเวนต์และชาเลนจ์
   events: EventsScreen,
-  // 'event-detail-joined': Events.EventDetailJoinedScreen,  // TODO: ยังไม่ได้ทำ
-  // 'event-join-confirm': Events.EventJoinConfirmScreen,  // TODO: ยังไม่ได้ทำ
-  // 'event-joined': Events.EventJoinedScreen,  // TODO: ยังไม่ได้ทำ
-  // 'event-leave-confirm': Events.EventLeaveConfirmScreen,  // TODO: ยังไม่ได้ทำ
-  // 'event-invite-friends': Events.EventInviteFriendsScreen,  // TODO: ยังไม่ได้ทำ
+  'event-detail-joined': Events.EventDetailJoinedScreen,
+  'event-join-confirm': Events.EventJoinConfirmScreen,
+  'event-joined': Events.EventJoinedScreen,
+  'event-leave-confirm': Events.EventLeaveConfirmScreen,
+  'event-invite-friends': Events.EventInviteFriendsScreen,
 
   // 7. อันดับ คลับ และเพื่อน
   ranking: RankingScreen,
