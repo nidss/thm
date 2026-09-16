@@ -22,7 +22,6 @@
 5 หน้าที่เป็นแท็บหลัก (มีเมนูลอยด้านล่าง) คือ Dashboard, Events,
 Activity, Ranking และ Points & Rewards ตาม component `menu-light` (`281:2105`)
 
-
 ## การเดินดู flow
 
 - กดปุ่มในเครื่องเพื่อเดินตาม flow จริง (เช่น Hero → สมัคร → OTP → PDPA → เชื่อมแอป → ตั้งเป้า)
