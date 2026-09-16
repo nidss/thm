@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+/*
+ * Design token จาก Figma (ThaiMove / Screen Draft)
+ * ชื่อ token ฝั่งซ้ายอ้างอิงตัวแปรใน Figma โดยตรง เช่น color/bg/primary -> --color-primary
+ */
+@theme {
+  /* สีหลักของแอป */
+  --color-ink: #090909;              /* พื้นหลังหลักของหน้าจอ */
+  --color-primary: #6fffe8;          /* color/bg/primary, color/interactive/primary, color/border/primary */
+  --color-primary-active: #00b899;   /* color/text/primary-active */
+  --color-inverse: #ffffff;          /* color/text/inverse */
+
+  /* สีรอง ที่ใช้ซ้ำหลายหน้าจอ */
+  --color-violet: #5c58ff;
+  --color-violet-soft: #8a84ff;
+  --color-violet-text: #bdb9ff;
+  --color-amber: #ffc94d;
+  --color-lime: #7bdb4a;
+  --color-coral: #ff7a45;
+
+  /* พื้นผิว (surface) แบบโปร่งแสงที่ใช้กับการ์ดทุกใบ */
+  --color-surface: rgba(255, 255, 255, 0.06);
+  --color-surface-strong: rgba(255, 255, 255, 0.1);
+  --color-hairline: rgba(255, 255, 255, 0.08);
+
+  /* spacing/sm จาก Figma */
+  --spacing-sm: 8px;
+
+  /* ฟอนต์ Anuphan ถูกโหลดผ่าน next/font ใน layout.tsx */
+  --font-anuphan: var(--font-anuphan-loaded), "Anuphan", system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background-color: #050505;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ซ่อน scrollbar ภายในตัวเครื่องจำลอง เพื่อให้หน้าจอดูเหมือนแอปจริง */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* เส้นแสงวิ่งรอบ ๆ ตัวเครื่อง (ใช้ในหน้า landing) */
+@keyframes aurora-drift {
+  0%,
+  100% {
+    transform: translate3d(-6%, -4%, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(6%, 4%, 0) scale(1.15);
+    opacity: 0.85;
+  }
+}
+
+.aurora {
+  animation: aurora-drift 14s ease-in-out infinite;
+}
+
+/* ผู้ใช้ที่ตั้งค่าลดการเคลื่อนไหว จะไม่เห็น animation ที่วนซ้ำ */
+@media (prefers-reduced-motion: reduce) {
+  .aurora {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/*
+ * ตัวเครื่องจำลองกว้าง 360px ตายตัวตามดีไซน์
+ * บนจอมือถือแคบ ๆ จึงย่อทั้งเครื่องลงแทนที่จะให้ล้นออกนอกจอ
+ * (ตั้ง height ตามสัดส่วนที่ย่อ เพื่อไม่ให้เหลือช่องว่างด้านล่าง)
+ */
+.phone-stage {
+  --phone-scale: 1;
+  height: calc(780px * var(--phone-scale));
+  transform: scale(var(--phone-scale));
+  transform-origin: top center;
+}
+
+@media (max-width: 400px) {
+  .phone-stage {
+    --phone-scale: 0.86;
+  }
+}
+
+@media (max-width: 344px) {
+  .phone-stage {
+    --phone-scale: 0.76;
+  }
+}
