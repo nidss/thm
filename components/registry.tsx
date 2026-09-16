@@ -15,6 +15,8 @@ import * as Home from './screens/home';
 import * as Rewards from './screens/rewards';
 import * as Draw from './screens/draw';
 import * as Events from './screens/events';
+import * as Social from './screens/social';
+import * as Profile from './screens/profile';
 
 /**
  * ผูก slug ของหน้าจอเข้ากับ component จริง
@@ -79,18 +81,18 @@ export const REGISTRY: Partial<Record<ScreenSlug, ComponentType>> = {
 
   // 7. อันดับ คลับ และเพื่อน
   ranking: RankingScreen,
-  // 'club-detail': Social.ClubDetailScreen,  // TODO: ยังไม่ได้ทำ
-  // 'club-manage-members': Social.ClubManageMembersScreen,  // TODO: ยังไม่ได้ทำ
-  // 'friends-find-add': Social.FriendsFindAddScreen,  // TODO: ยังไม่ได้ทำ
+  'club-detail': Social.ClubDetailScreen,
+  'club-manage-members': Social.ClubManageMembersScreen,
+  'friends-find-add': Social.FriendsFindAddScreen,
 
   // 8. โปรไฟล์และการตั้งค่า
-  // 'profile-settings': Profile.ProfileSettingsScreen,  // TODO: ยังไม่ได้ทำ
-  // 'profile-edit': Profile.ProfileEditScreen,  // TODO: ยังไม่ได้ทำ
-  // 'connected-app-manage': Profile.ConnectedAppManageScreen,  // TODO: ยังไม่ได้ทำ
-  // 'connected-app-disconnect-confirm': Profile.ConnectedAppDisconnectScreen,  // TODO: ยังไม่ได้ทำ
-  // 'help-point-rules': Profile.HelpPointRulesScreen,  // TODO: ยังไม่ได้ทำ
-  // 'support-contact': Profile.SupportContactScreen,  // TODO: ยังไม่ได้ทำ
-  // 'account-pause': Profile.AccountPauseScreen,  // TODO: ยังไม่ได้ทำ
-  // 'account-delete': Profile.AccountDeleteScreen,  // TODO: ยังไม่ได้ทำ
-  // 'account-delete-scheduled': Profile.AccountDeleteScheduledScreen,  // TODO: ยังไม่ได้ทำ
+  'profile-settings': Profile.ProfileSettingsScreen,
+  'profile-edit': Profile.ProfileEditScreen,
+  'connected-app-manage': Profile.ConnectedAppManageScreen,
+  'connected-app-disconnect-confirm': Profile.ConnectedAppDisconnectScreen,
+  'help-point-rules': Profile.HelpPointRulesScreen,
+  'support-contact': Profile.SupportContactScreen,
+  'account-pause': Profile.AccountPauseScreen,
+  'account-delete': Profile.AccountDeleteScreen,
+  'account-delete-scheduled': Profile.AccountDeleteScheduledScreen,
 };

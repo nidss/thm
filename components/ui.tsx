@@ -381,6 +381,7 @@ export function DarkField({
   type = 'text',
   right,
   error,
+  danger = false,
 }: {
   label?: string;
   value?: string;
@@ -389,13 +390,15 @@ export function DarkField({
   type?: string;
   right?: ReactNode;
   error?: string;
+  /** ขอบสีส้มเตือน โดยไม่ต้องมีข้อความ error (ใช้กับช่องยืนยันลบบัญชี) */
+  danger?: boolean;
 }) {
   return (
     <label className="flex w-full flex-col gap-1.5">
       {label ? <span className="text-xs font-semibold text-white/60">{label}</span> : null}
       <span
         className={`flex items-center gap-2 rounded-[16px] border bg-white/[0.06] px-4 py-[14px] ${
-          error ? 'border-coral/60' : 'border-white/[0.14]'
+          error || danger ? 'border-coral/60' : 'border-white/[0.14]'
         }`}
       >
         <input
