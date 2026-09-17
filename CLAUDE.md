@@ -97,7 +97,9 @@ Fonts load via `next/font` in `app/layout.tsx`: Anuphan for body (`font-anuphan`
 
 The 15 real images live in `public/img` and are all referenced through the `IMAGES` manifest in `Surface.tsx`.
 
-Known substitutions where no source file was supplied (documented in README): user/club avatars use `GradientBlock`; the ThaiMove logo is type-built in `ui.tsx`; the commercial display font is substituted with Anton.
+The favicon is `app/icon.png` (Next's metadata file convention, so Next applies the basePath itself — it does **not** go through `withBasePath`). The ThaiMove logo is the real `thaimove-logo.svg`, inlined as `Logo` in `ui.tsx`: its white and mint fills are baked in, so it cannot be re-tinted and it disappears on a light background.
+
+Known substitutions where no source file was supplied (documented in README): user/club avatars use `GradientBlock`; the commercial display font is substituted with Anton.
 
 ## Deployment
 

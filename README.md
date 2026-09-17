@@ -78,7 +78,6 @@ push ขึ้น `main` แล้ว GitHub Actions (`.github/workflows/deploy.
 
 - รูปโปรไฟล์ผู้ใช้และรูปคลับ ใช้ gradient ชุดเดียวกับที่ไฟล์ Figma
   ใช้เป็น placeholder อยู่แล้ว (ดู `components/Surface.tsx`)
-- โลโก้ ThaiMove ประกอบขึ้นจากตัวอักษรใน `components/ui.tsx` (`Logo`)
 - ฟอนต์หัวข้อในดีไซน์คือ Frick 0.3 Condensed (ฟอนต์เชิงพาณิชย์)
   จึงใช้ Anton จาก Google Fonts ที่หน้าตาใกล้เคียงแทน
 

@@ -20,7 +20,7 @@ const anton = Anton({
 });
 
 export const metadata: Metadata = {
-  title: 'ThaiMove — ขยับวันนี้ ได้แต้มพรุ่งนี้',
+  title: 'ThaiMove ทุกแอป ทุกกิจกรรม ที่เดียว',
   description:
     'ตัวอย่างหน้าจอแอป ThaiMove สะสมแต้มจากการเดิน วิ่ง และปั่น แลกของรางวัลและลุ้นรางวัลใหญ่',
 };
