@@ -1,6 +1,19 @@
 import NextImage from 'next/image';
 
 /*
+ * next/image ที่ตั้ง unoptimized: true จะไม่เติม basePath ให้อัตโนมัติ
+ * (ต่างจากไฟล์ใน _next ที่ Next เติม assetPrefix ให้เอง)
+ * ตอน deploy ขึ้น GitHub Pages เว็บอยู่ใต้ /thm/ รูปจึงต้องเติม prefix เอง
+ * ไม่อย่างนั้นเบราว์เซอร์จะไปขอ /img/... แล้วได้ 404
+ */
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
+/** เติม basePath หน้า path ของรูปใน public/ */
+export function withBasePath(src: string) {
+  return `${BASE_PATH}${src}`;
+}
+
+/*
  * gradient ชุดนี้คือค่าที่ไฟล์ Figma ใช้แทนรูปโปรไฟล์/รูปคลับอยู่แล้ว
  * (ในดีไซน์ต้นทางหลายจุดเป็น gradient จริง ๆ ไม่ใช่รูป)
  * ใช้ต่อกับจุดที่ยังไม่มีไฟล์รูปจริงส่งมา เช่น รูปโปรไฟล์ผู้ใช้และรูปคลับ
@@ -67,7 +80,7 @@ export type ImageKey = keyof typeof IMAGES;
 
 /**
  * รูปที่เติมเต็มกล่องพ่อแม่ (กล่องต้องเป็น relative และกำหนดขนาดไว้แล้ว)
- * next/image เติม basePath ให้เองตอน deploy ขึ้น GitHub Pages
+ * src ผ่าน withBasePath เพื่อให้ทำงานถูกทั้งตอนรันในเครื่องและตอนขึ้น GitHub Pages
  */
 export function Img({
   name,
@@ -83,7 +96,7 @@ export function Img({
   const img = IMAGES[name];
   return (
     <NextImage
-      src={img.src}
+      src={withBasePath(img.src)}
       alt={alt}
       fill
       sizes="360px"
@@ -106,7 +119,7 @@ export function FixedImg({
   const img = IMAGES[name];
   return (
     <NextImage
-      src={img.src}
+      src={withBasePath(img.src)}
       alt={alt}
       width={img.width}
       height={img.height}

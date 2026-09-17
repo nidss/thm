@@ -64,7 +64,8 @@ Five original tab screens live in their own files (`DashboardScreen.tsx`, `Event
   `Screen` + `Block` are the standard wrapper pair: `Screen` sets up the stagger container, each `Block` is one staggered child. `Button` takes a `to` prop (a `ScreenSlug`) to navigate.
   Two input styles exist on purpose: `Field` is the white-background one used only on Login/Signup; `DarkField` is the translucent one used everywhere else.
 - **`components/motion.tsx`** — `listStagger`/`riseItem`/`popCard` variants, `easeOutSoft`, `springSoft`, plus `ProgressBar`, `CountUp`, `GrowBar`. All respect `prefers-reduced-motion`.
-- **`components/Surface.tsx`** — `Img`/`FixedImg` (wrap `next/image`, so basePath is applied automatically — do **not** hand-write `<img src="/img/...">`), the `IMAGES` manifest, and `GRADIENTS`/`GradientBlock` placeholders.
+- **`components/Surface.tsx`** — `Img`/`FixedImg` (wrap `next/image` and prefix the src with `withBasePath`, so basePath is applied — do **not** hand-write `<img src="/img/...">`), the `IMAGES` manifest, and `GRADIENTS`/`GradientBlock` placeholders.
+  Because `next.config.mjs` sets `images: { unoptimized: true }`, `next/image` does **not** prefix basePath itself (unlike `_next/*` assets, which get `assetPrefix`). Every `public/` asset must go through `withBasePath`, or it 404s on GitHub Pages under `/thm/`.
 
 ### Design tokens
 
