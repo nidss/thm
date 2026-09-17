@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { Img } from '../Surface';
 import { IconArrowRight, IconCheck } from '../icons';
 import { CountUp, ProgressBar } from '../motion';
@@ -117,6 +118,9 @@ export function EventDetailJoinedScreen() {
 /* ---------- Event - Join Confirm (219:290) ---------- */
 
 export function EventJoinConfirmScreen() {
+  // ต้องติ๊กยอมรับกติกาก่อนถึงจะกดยืนยันเข้าร่วมได้
+  const [accepted, setAccepted] = useState(true);
+
   return (
     <div className="flex min-h-[736px] flex-col">
       <Screen padded={false} className="gap-4 px-4 pt-2.5">
@@ -171,15 +175,16 @@ export function EventJoinConfirmScreen() {
           </div>
         </Block>
 
-        <Block className="flex items-center gap-2.5">
-          <Checkbox checked />
-          <p className="flex-1 text-xs text-white">ฉันยอมรับกติกาและเงื่อนไขของอีเวนต์นี้</p>
+        <Block>
+          <Checkbox checked onChange={setAccepted} className="items-center">
+            <span className="flex-1 text-xs text-white">ฉันยอมรับกติกาและเงื่อนไขของอีเวนต์นี้</span>
+          </Checkbox>
         </Block>
       </Screen>
 
       <div className="mt-auto flex flex-col gap-4 px-4 pb-6 pt-6">
         <Block>
-          <Button to="event-joined" className="h-[54px] text-[15px]">
+          <Button to="event-joined" disabled={!accepted} className="h-[54px] text-[15px]">
             ยืนยันเข้าร่วม
             <IconArrowRight className="size-[18px]" />
           </Button>

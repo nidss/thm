@@ -1,9 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { BrandApple, BrandFacebook, BrandGoogle } from '../brandIcons';
 import { Img } from '../Surface';
-import { IconEye } from '../icons';
 import { riseItem } from '../motion';
 import { useNav } from '../nav';
 import {
@@ -18,6 +18,7 @@ import {
   InlineAlert,
   Logo,
   OtpBoxes,
+  PASSWORD_RULES,
   Screen,
   StrengthMeter,
 } from '../ui';
@@ -110,6 +111,16 @@ function SocialRow() {
 
 export function LoginScreen() {
   const { go } = useNav();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  // โชว์ error ต่อเมื่อกดปุ่มแล้วเท่านั้น จะได้ไม่ขึ้นแดงตั้งแต่ยังไม่ทันพิมพ์
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleLogin = () => {
+    setSubmitted(true);
+    if (!username.trim() || !password) return;
+    go('pdpa-consent');
+  };
 
   return (
     <div className="relative flex min-h-[736px] flex-col">
@@ -123,8 +134,17 @@ export function LoginScreen() {
         </Block>
 
         <Block className="flex flex-col gap-5">
-          <Field label="Username" />
-          <Field label="Password" type="password" right={<IconEye className="size-5 text-[#8c8c8c]" />} />
+          <Field
+            label="Username"
+            onChange={setUsername}
+            error={submitted && !username.trim() ? 'กรอกชื่อผู้ใช้ก่อน' : undefined}
+          />
+          <Field
+            label="Password"
+            type="password"
+            onChange={setPassword}
+            error={submitted && !password ? 'กรอกรหัสผ่านก่อน' : undefined}
+          />
         </Block>
 
         <Block className="flex justify-end">
@@ -148,7 +168,7 @@ export function LoginScreen() {
 
       <div className="mt-auto px-6 pb-11 pt-8">
         <Block>
-          <Button to="pdpa-consent" arrow className="text-lg">
+          <Button onClick={handleLogin} arrow className="text-lg">
             LOG IN
           </Button>
         </Block>
@@ -160,6 +180,11 @@ export function LoginScreen() {
 /* ---------- Create an account (212:1619) ---------- */
 
 export function SignupScreen() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeat, setRepeat] = useState('');
+  const canJoin = Boolean(username.trim()) && Boolean(password) && password === repeat;
+
   return (
     <div className="relative flex min-h-[736px] flex-col">
       <Screen padded={false} className="gap-[26px] px-6 pt-14">
@@ -172,12 +197,13 @@ export function SignupScreen() {
         </Block>
 
         <Block className="flex flex-col gap-5">
-          <Field label="Username" />
-          <Field label="Password" type="password" right={<IconEye className="size-5 text-[#8c8c8c]" />} />
+          <Field label="Username" onChange={setUsername} />
+          <Field label="Password" type="password" onChange={setPassword} />
           <Field
             label="Repeat Password"
             type="password"
-            right={<IconEye className="size-5 text-[#8c8c8c]" />}
+            onChange={setRepeat}
+            error={repeat && repeat !== password ? 'รหัสผ่านไม่ตรงกัน' : undefined}
           />
         </Block>
 
@@ -192,7 +218,7 @@ export function SignupScreen() {
 
       <div className="mt-auto px-6 pb-11 pt-8">
         <Block>
-          <Button to="otp-verify" arrow className="text-lg">
+          <Button to="otp-verify" arrow disabled={!canJoin} className="text-lg">
             Join Us
           </Button>
         </Block>
@@ -204,6 +230,9 @@ export function SignupScreen() {
 /* ---------- PDPA - Consent (262:1777) ---------- */
 
 export function PdpaConsentScreen() {
+  // ข้อแรกเป็นความยินยอมที่จำเป็น ถ้าเอาออกจะไปต่อไม่ได้
+  const [consent, setConsent] = useState(true);
+
   return (
     <Screen className="gap-4 px-4 pb-8 pt-2.5">
       <AppBar title="" />
@@ -228,18 +257,16 @@ export function PdpaConsentScreen() {
       </Block>
 
       <Block className="flex flex-col gap-3">
-        <div className="flex items-start gap-2.5">
-          <Checkbox checked />
-          <p className="flex-1 text-[12.5px] leading-[1.45] text-white/85">
+        <Checkbox checked onChange={setConsent}>
+          <span className="flex-1 text-[12.5px] leading-[1.45] text-white/85">
             ยินยอมให้ประมวลผลข้อมูลสุขภาพเพื่อคำนวณแต้มและจัดอันดับ (จำเป็น)
-          </p>
-        </div>
-        <div className="flex items-start gap-2.5">
-          <Checkbox />
-          <p className="flex-1 text-[12.5px] leading-[1.45] text-white/85">
+          </span>
+        </Checkbox>
+        <Checkbox>
+          <span className="flex-1 text-[12.5px] leading-[1.45] text-white/85">
             ยินยอมรับข่าวสาร โปรโมชัน และข้อเสนอทางการตลาด (ไม่บังคับ)
-          </p>
-        </div>
+          </span>
+        </Checkbox>
       </Block>
 
       <Block className="flex items-center gap-1.5 text-xs">
@@ -249,7 +276,7 @@ export function PdpaConsentScreen() {
       </Block>
 
       <Block className="flex flex-col gap-4">
-        <Button to="connect-apps" className="py-[15px] text-[15px]">
+        <Button to="connect-apps" disabled={!consent} className="py-[15px] text-[15px]">
           ยอมรับและไปต่อ
         </Button>
         <Button to="pdpa-declined" variant="secondary" className="py-[15px] text-[15px]">
@@ -323,6 +350,10 @@ export function PdpaDeclinedScreen() {
 /* ---------- Auth - OTP Verify (262:1816) ---------- */
 
 export function OtpVerifyScreen() {
+  const [code, setCode] = useState('429');
+  // ดีไซน์ต้นทางเป็นสถานะ "รหัสผิด" พอผู้ใช้เริ่มแก้รหัสแล้วให้ซ่อนคำเตือนไป
+  const [edited, setEdited] = useState(false);
+
   return (
     <Screen className="gap-[18px] px-4 pb-8 pt-2.5">
       <AppBar title="" />
@@ -334,12 +365,20 @@ export function OtpVerifyScreen() {
       </Block>
 
       <Block>
-        <OtpBoxes code="429" />
+        <OtpBoxes
+          code="429"
+          onChange={(v) => {
+            setCode(v);
+            setEdited(true);
+          }}
+        />
       </Block>
 
-      <Block>
-        <InlineAlert>รหัสไม่ถูกต้อง ลองใหม่อีกครั้ง (เหลือ 4 ครั้ง)</InlineAlert>
-      </Block>
+      {edited ? null : (
+        <Block>
+          <InlineAlert>รหัสไม่ถูกต้อง ลองใหม่อีกครั้ง (เหลือ 4 ครั้ง)</InlineAlert>
+        </Block>
+      )}
 
       <Block className="flex items-center gap-1.5 text-[12.5px]">
         <span className="text-white/60">ส่งรหัสใหม่ได้ใน</span>
@@ -347,7 +386,7 @@ export function OtpVerifyScreen() {
       </Block>
 
       <Block className="flex flex-col gap-4">
-        <Button to="pdpa-consent" className="py-[15px] text-[15px]">
+        <Button to="pdpa-consent" disabled={code.length < 6} className="py-[15px] text-[15px]">
           ยืนยัน
         </Button>
         <Button variant="secondary" className="py-[15px] text-[15px]">
@@ -411,6 +450,12 @@ export function ForgotPasswordErrorScreen() {
 /* ---------- Auth - Reset Password (262:1902) ---------- */
 
 export function ResetPasswordScreen() {
+  const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
+  // ข้อที่เป็น (แนะนำ) ไม่บังคับ ต้องผ่านเฉพาะข้อที่จำเป็น
+  const requiredPassed = PASSWORD_RULES.every((r) => 'optional' in r || r.test(password));
+  const matched = Boolean(confirm) && confirm === password;
+
   return (
     <Screen className="gap-[18px] px-4 pb-8 pt-2.5">
       <AppBar title="" />
@@ -422,31 +467,42 @@ export function ResetPasswordScreen() {
       </Block>
 
       <Block className="flex flex-col gap-[18px]">
-        <DarkField label="รหัสผ่านใหม่" type="password" value="••••••••••" />
-        <DarkField label="ยืนยันรหัสผ่านใหม่" type="password" value="••••••••••" />
+        <DarkField
+          label="รหัสผ่านใหม่"
+          type="password"
+          placeholder="ตั้งรหัสผ่านใหม่"
+          onChange={setPassword}
+        />
+        <DarkField
+          label="ยืนยันรหัสผ่านใหม่"
+          type="password"
+          placeholder="พิมพ์ซ้ำอีกครั้ง"
+          onChange={setConfirm}
+          error={confirm && !matched ? 'รหัสผ่านไม่ตรงกัน' : undefined}
+        />
       </Block>
 
       <Block>
-        <StrengthMeter level={3} />
+        <StrengthMeter password={password} />
       </Block>
 
       <Block className="rounded-[22px] bg-surface p-[14px]">
         <p className="pb-2 text-sm font-bold text-white">ต้องมีอย่างน้อย</p>
-        {[
-          ['✓', '8 ตัวอักษรขึ้นไป', true],
-          ['✓', 'ตัวพิมพ์ใหญ่และพิมพ์เล็ก', true],
-          ['✓', 'ตัวเลขอย่างน้อย 1 ตัว', true],
-          ['○', 'อักขระพิเศษ 1 ตัว (แนะนำ)', false],
-        ].map(([mark, text, done]) => (
-          <div key={text as string} className="flex items-center gap-2 py-1 text-xs">
-            <span className={`font-bold ${done ? 'text-primary' : 'text-white'}`}>{mark}</span>
-            <span className="text-white">{text}</span>
-          </div>
-        ))}
+        {PASSWORD_RULES.map((rule) => {
+          const done = rule.test(password);
+          return (
+            <div key={rule.key} className="flex items-center gap-2 py-1 text-xs">
+              <span className={`font-bold transition-colors ${done ? 'text-primary' : 'text-white/45'}`}>
+                {done ? '✓' : '○'}
+              </span>
+              <span className={done ? 'text-white' : 'text-white/60'}>{rule.text}</span>
+            </div>
+          );
+        })}
       </Block>
 
       <Block className="pt-2">
-        <Button to="login" className="py-[15px] text-[15px]">
+        <Button to="login" disabled={!requiredPassed || !matched} className="py-[15px] text-[15px]">
           บันทึกรหัสผ่านใหม่
         </Button>
       </Block>

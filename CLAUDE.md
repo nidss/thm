@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A single public page that renders **57 mobile screens** of the ThaiMove app (a Thai walk/run rewards app) inside a phone mockup, built from a Figma design. It is a design preview, not a real app — there is no backend, no auth, and all data is hardcoded in the screen components.
 
+The form controls are nonetheless genuinely interactive: `Field`, `DarkField`, `DarkTextarea`, `Checkbox`, `Toggle` and `OtpBoxes` each hold their own local state, so a `value`/`checked`/`on`/`code` prop is the **initial** state, not a fixed display value. Password fields render their own reveal button when `type="password"` — don't pass an eye icon via `right`. Screens that gate a button on form state (login, signup, PDPA consent, OTP, reset password, event join) do so with plain `useState` in the screen component; every screen is still reachable directly by hash URL and from the on-page index, so gating never blocks design review.
+
 UI copy is Thai. Code comments in this repo are written in Thai; match that when editing existing files.
 
 ## Commands
@@ -66,6 +68,9 @@ Five original tab screens live in their own files (`DashboardScreen.tsx`, `Event
 - **`components/brandIcons.tsx`** — `BrandApple`/`BrandFacebook`/`BrandGoogle`, the real social-login logos, used only by `SocialRow` in `auth.tsx`.
   Kept out of `icons.tsx` because that file is the generated monochrome HugeIcons set on `currentColor`, while these carry their own brand colours (Google is 4-colour and cannot be re-tinted).
   Note `IconApple`/`IconGoogle` in `icons.tsx` are *outline* icons for the Apple Health / Google Fit rows in `setup.tsx`, `profile.tsx` and `ActivityScreen.tsx` — they are not brand logos, so don't swap them for these.
+- **`components/lucideIcons.tsx`** — `IconEye`/`IconEyeOff` from [Lucide](https://lucide.dev), used by the password reveal button inside `Field`/`DarkField`.
+  Separate from `icons.tsx` because Lucide draws on a 24 grid at `strokeWidth` 2 while the HugeIcons set uses 1.5 — mixing them in one file makes the stroke weights look inconsistent.
+  Note `IconEye` also still exists in `icons.tsx` (HugeIcons); that one is the settings-row glyph in `profile.tsx`, not the password control.
 - **`components/motion.tsx`** — `listStagger`/`riseItem`/`popCard` variants, `easeOutSoft`, `springSoft`, plus `ProgressBar`, `CountUp`, `GrowBar`. All respect `prefers-reduced-motion`.
 - **`components/Surface.tsx`** — `Img`/`FixedImg` (wrap `next/image` and prefix the src with `withBasePath`, so basePath is applied — do **not** hand-write `<img src="/img/...">`), the `IMAGES` manifest, and `GRADIENTS`/`GradientBlock` placeholders.
   Because `next.config.mjs` sets `images: { unoptimized: true }`, `next/image` does **not** prefix basePath itself (unlike `_next/*` assets, which get `assetPrefix`). Every `public/` asset must go through `withBasePath`, or it 404s on GitHub Pages under `/thm/`.

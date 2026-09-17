@@ -528,6 +528,7 @@ export function SupportContactScreen() {
           <DarkTextarea
             label="เล่าให้เราฟังหน่อย"
             placeholder="วิ่งเสร็จตั้งแต่เช้าแล้วแต้มยังไม่เข้า ลองซิงก์ใหม่ 2 ครั้งแล้ว"
+            maxLength={500}
           />
           <p className="-mt-2 text-[11.5px] text-white">ยิ่งบอกละเอียด ยิ่งตรวจสอบได้เร็ว</p>
 
