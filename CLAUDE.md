@@ -56,6 +56,16 @@ There is exactly one Next.js route (`app/page.tsx`). All 57 screens are client c
 
 `PhoneFrame.tsx` owns the 360×780 device shell, the scroll container, and the `AnimatePresence` screen transition. It shows `FloatingMenu` only for the five slugs in its `TAB_BY_SLUG` map (dashboard, events, activity, ranking, rewards) — that map and `components/tabs.ts` must agree.
 
+### Page layout (`app/page.tsx` + `ScreenIndex.tsx`)
+
+Below `lg` the page is stacked (phone, then index). From `lg` up it is two columns: the phone is `sticky` on the left, and `ScreenIndex` sits on the right in its own `max-h-[780px] overflow-y-auto` panel, so the phone never scrolls out of view.
+
+Two constraints keep that working, and both are easy to break:
+- `main` uses `overflow-x-clip`, **not** `overflow-hidden`. `overflow: hidden` creates a scroll container, which silently kills the phone's `sticky`. `clip` does not.
+- Each section card in the index panel needs `shrink-0`. Without it the flex column shrinks the cards to fit the capped height instead of overflowing, and the last sections get clipped with no way to scroll to them.
+
+Index sections are collapsible; only the section holding the current screen starts open, and navigating in the phone auto-opens (and scrolls to) that section.
+
 ### Screen file organisation
 
 Five original tab screens live in their own files (`DashboardScreen.tsx`, `EventsScreen.tsx`, …). The other 52 are grouped into per-section barrels: `auth.tsx`, `setup.tsx`, `home.tsx`, `rewards.tsx`, `draw.tsx`, `events.tsx`, `social.tsx`, `profile.tsx`, imported as namespaces in `registry.tsx`.
