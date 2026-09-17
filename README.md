@@ -79,7 +79,6 @@ push ขึ้น `main` แล้ว GitHub Actions (`.github/workflows/deploy.
 - รูปโปรไฟล์ผู้ใช้และรูปคลับ ใช้ gradient ชุดเดียวกับที่ไฟล์ Figma
   ใช้เป็น placeholder อยู่แล้ว (ดู `components/Surface.tsx`)
 - โลโก้ ThaiMove ประกอบขึ้นจากตัวอักษรใน `components/ui.tsx` (`Logo`)
-- โลโก้ Facebook ในหน้า login/สมัคร วาดขึ้นใหม่ เพราะไม่มีในชุดไอคอน 43 ตัว
 - ชุดไอคอนที่ให้มาไม่มี glyph medal กับ calendar แท็บ "ชาเลนจ์" จึงใช้
   `icon/target` และ "กิจกรรม" ใช้ `icon/activity`
 - ฟอนต์หัวข้อในดีไซน์คือ Frick 0.3 Condensed (ฟอนต์เชิงพาณิชย์)

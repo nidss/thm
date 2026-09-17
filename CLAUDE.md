@@ -63,6 +63,9 @@ Five original tab screens live in their own files (`DashboardScreen.tsx`, `Event
 - **`components/ui.tsx`** — `Screen`, `Block`, `AppBar`, `PageTitle`, `Button`, `Field`, `DarkField`, `DarkTextarea`, `Checkbox`, `Toggle`, `ListRow`, `Card`, `InfoCard`, `InlineAlert`, `OtpBoxes`, `BulletList`, `StrengthMeter`, `Tabs`, `DataRow`, `Pill`, `CenterDialog`, `Logo`.
   `Screen` + `Block` are the standard wrapper pair: `Screen` sets up the stagger container, each `Block` is one staggered child. `Button` takes a `to` prop (a `ScreenSlug`) to navigate.
   Two input styles exist on purpose: `Field` is the white-background one used only on Login/Signup; `DarkField` is the translucent one used everywhere else.
+- **`components/brandIcons.tsx`** — `BrandApple`/`BrandFacebook`/`BrandGoogle`, the real social-login logos, used only by `SocialRow` in `auth.tsx`.
+  Kept out of `icons.tsx` because that file is the generated monochrome HugeIcons set on `currentColor`, while these carry their own brand colours (Google is 4-colour and cannot be re-tinted).
+  Note `IconApple`/`IconGoogle` in `icons.tsx` are *outline* icons for the Apple Health / Google Fit rows in `setup.tsx`, `profile.tsx` and `ActivityScreen.tsx` — they are not brand logos, so don't swap them for these.
 - **`components/motion.tsx`** — `listStagger`/`riseItem`/`popCard` variants, `easeOutSoft`, `springSoft`, plus `ProgressBar`, `CountUp`, `GrowBar`. All respect `prefers-reduced-motion`.
 - **`components/Surface.tsx`** — `Img`/`FixedImg` (wrap `next/image` and prefix the src with `withBasePath`, so basePath is applied — do **not** hand-write `<img src="/img/...">`), the `IMAGES` manifest, and `GRADIENTS`/`GradientBlock` placeholders.
   Because `next.config.mjs` sets `images: { unoptimized: true }`, `next/image` does **not** prefix basePath itself (unlike `_next/*` assets, which get `assetPrefix`). Every `public/` asset must go through `withBasePath`, or it 404s on GitHub Pages under `/thm/`.
@@ -79,7 +82,7 @@ Fonts load via `next/font` in `app/layout.tsx`: Anuphan for body (`font-anuphan`
 
 The 15 real images live in `public/img` and are all referenced through the `IMAGES` manifest in `Surface.tsx`.
 
-Known substitutions where no source file was supplied (documented in README): user/club avatars use `GradientBlock`; the ThaiMove logo is type-built in `ui.tsx`; the Facebook glyph in `auth.tsx` is hand-drawn; the icon set has no medal or calendar glyph, so the ชาเลนจ์ tab uses `icon/target` and กิจกรรม uses `icon/activity`; the commercial display font is substituted with Anton.
+Known substitutions where no source file was supplied (documented in README): user/club avatars use `GradientBlock`; the ThaiMove logo is type-built in `ui.tsx`; the icon set has no medal or calendar glyph, so the ชาเลนจ์ tab uses `icon/target` and กิจกรรม uses `icon/activity`; the commercial display font is substituted with Anton.
 
 ## Deployment
 

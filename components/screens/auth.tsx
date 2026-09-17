@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { BrandApple, BrandFacebook, BrandGoogle } from '../brandIcons';
 import { Img } from '../Surface';
-import { IconApple, IconEye, IconGoogle } from '../icons';
+import { IconEye } from '../icons';
 import { riseItem } from '../motion';
 import { useNav } from '../nav';
 import {
@@ -85,9 +86,9 @@ function SocialRow() {
       <p className="text-lg font-semibold text-primary">sign up with</p>
       <div className="flex w-full items-center justify-between">
         {[
-          { key: 'google', node: <IconGoogle className="size-8 text-[#4285f4]" /> },
-          { key: 'apple', node: <IconApple className="size-8 text-ink" /> },
-          { key: 'facebook', node: <IconFacebook className="size-8 text-[#1877f2]" /> },
+          { key: 'google', node: <BrandGoogle className="size-8" /> },
+          { key: 'apple', node: <BrandApple className="size-8 text-ink" /> },
+          { key: 'facebook', node: <BrandFacebook className="size-8" /> },
         ].map((s) => (
           <motion.button
             key={s.key}
@@ -102,18 +103,6 @@ function SocialRow() {
         ))}
       </div>
     </div>
-  );
-}
-
-/**
- * โลโก้ Facebook ไม่มีอยู่ในชุดไอคอน 43 ตัวที่ส่งมา จึงวาดขึ้นใหม่
- * ให้ตรงกับรูปทรง "f" มาตรฐานของแบรนด์
- */
-function IconFacebook({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
-      <path d="M13.5 21.9V13.9h2.7l.4-3.2h-3.1V8.7c0-.9.26-1.55 1.57-1.55h1.67V4.3c-.29-.04-1.28-.13-2.44-.13-2.41 0-4.07 1.48-4.07 4.2v2.31H7.5v3.2h2.73v8z" />
-    </svg>
   );
 }
 
