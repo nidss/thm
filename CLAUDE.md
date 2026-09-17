@@ -68,9 +68,9 @@ Five original tab screens live in their own files (`DashboardScreen.tsx`, `Event
 - **`components/brandIcons.tsx`** — `BrandApple`/`BrandFacebook`/`BrandGoogle`, the real social-login logos, used only by `SocialRow` in `auth.tsx`.
   Kept out of `icons.tsx` because that file is the generated monochrome HugeIcons set on `currentColor`, while these carry their own brand colours (Google is 4-colour and cannot be re-tinted).
   Note `IconApple`/`IconGoogle` in `icons.tsx` are *outline* icons for the Apple Health / Google Fit rows in `setup.tsx`, `profile.tsx` and `ActivityScreen.tsx` — they are not brand logos, so don't swap them for these.
-- **`components/lucideIcons.tsx`** — `IconEye`/`IconEyeOff` from [Lucide](https://lucide.dev), used by the password reveal button inside `Field`/`DarkField`.
-  Separate from `icons.tsx` because Lucide draws on a 24 grid at `strokeWidth` 2 while the HugeIcons set uses 1.5 — mixing them in one file makes the stroke weights look inconsistent.
-  Note `IconEye` also still exists in `icons.tsx` (HugeIcons); that one is the settings-row glyph in `profile.tsx`, not the password control.
+- **`components/lucideIcons.tsx`** — [Lucide](https://lucide.dev) icons, kept out of `icons.tsx` because that file is generated and its paths must not be hand-edited.
+  Two stroke weights live here on purpose: `IconEye`/`IconEyeOff` (the password reveal button in `Field`/`DarkField`) use Lucide's own `strokeWidth` 2, while the five bottom-menu icons — `IconHouse`, `IconMedal`, `IconCalendarDays`, `IconPodium`, `IconGiftBox` (lucide `house`/`medal`/`calendar-days`/`podium`/`gift`) — use 1.5, the weight the design exported them at.
+  Watch the near-duplicate names: `icons.tsx` has its own `IconEye`, `IconHome` and `IconGift`. Those are the HugeIcons versions used in settings rows and elsewhere — `tabs.ts` and the password field must import from *this* file instead.
 - **`components/motion.tsx`** — `listStagger`/`riseItem`/`popCard` variants, `easeOutSoft`, `springSoft`, plus `ProgressBar`, `CountUp`, `GrowBar`. All respect `prefers-reduced-motion`.
 - **`components/Surface.tsx`** — `Img`/`FixedImg` (wrap `next/image` and prefix the src with `withBasePath`, so basePath is applied — do **not** hand-write `<img src="/img/...">`), the `IMAGES` manifest, and `GRADIENTS`/`GradientBlock` placeholders.
   Because `next.config.mjs` sets `images: { unoptimized: true }`, `next/image` does **not** prefix basePath itself (unlike `_next/*` assets, which get `assetPrefix`). Every `public/` asset must go through `withBasePath`, or it 404s on GitHub Pages under `/thm/`.
@@ -87,7 +87,7 @@ Fonts load via `next/font` in `app/layout.tsx`: Anuphan for body (`font-anuphan`
 
 The 15 real images live in `public/img` and are all referenced through the `IMAGES` manifest in `Surface.tsx`.
 
-Known substitutions where no source file was supplied (documented in README): user/club avatars use `GradientBlock`; the ThaiMove logo is type-built in `ui.tsx`; the icon set has no medal or calendar glyph, so the ชาเลนจ์ tab uses `icon/target` and กิจกรรม uses `icon/activity`; the commercial display font is substituted with Anton.
+Known substitutions where no source file was supplied (documented in README): user/club avatars use `GradientBlock`; the ThaiMove logo is type-built in `ui.tsx`; the commercial display font is substituted with Anton.
 
 ## Deployment
 
